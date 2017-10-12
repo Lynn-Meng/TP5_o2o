@@ -11,9 +11,25 @@ use think\Model;
 class Category extends Model
 {
 
-
+    //自动写入时间戳
+    protected $autoWriteTimestamp = true;
     //获取所有以及分类
-    public function getFirstNormalCategoried()
+    public function getFirstNormalCategoried($parent_id = 0)
+    {
+        //条件
+        $data = [
+            'status' => ['neq', -1],
+            'parent_id' => $parent_id,
+        ];
+        //排序属性
+        $order = [
+            'listorder' => 'desc',
+            'id' => 'desc'
+        ];
+        return $this->where($data)->order($order)->paginate();
+    }
+    //不带分页的获取一级分类的方法
+    public function getAllFirstNormalCategoried()
     {
         //条件
         $data = [
@@ -25,6 +41,7 @@ class Category extends Model
             'listorder' => 'desc',
             'id' => 'desc'
         ];
-        return $this->where($data)->order($order)->paginate();
+        return $this->where($data)->order($order)->select();
     }
+
 }

@@ -11,6 +11,8 @@
 
 // 应用公共文件
 
+
+//状态
 function status($status)
 {
     if ($status == 1)
