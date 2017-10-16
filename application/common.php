@@ -40,3 +40,40 @@ function pagination($pageObj)
     $result = "<div class='cl pd-5 bg-1 bk-gray mt-20 tp5-o2o'>".$pageObj->render()."</div>";
     return $result;
 }
+
+
+
+//网络请求的方法: cURL
+
+/**
+ * @param $url  请求的url
+ * @param int $type   请求方式0是get 1是post
+ * @param array $data   请求时的数据（post时使用）
+ */
+function doCurl($url, $type = 0, $data=[])
+{
+    //初始化curl
+    $ch = curl_init();
+    //设置相关参数
+    //CURLOPT_URL 请求的url地址
+    curl_setopt($ch,CURLOPT_URL,$url);
+    //CURLOPT_RETURNTRANSFER  请求结果以文本流形式返回
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+    //CURLOPT_HEADER 是否返回http头部信息
+    curl_setopt($ch,CURLOPT_HEADER,0);
+
+    //判断请求方式
+    if ($type == 1)
+    {
+        //post请求
+        curl_setopt($ch,CURLOPT_PORT,url);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
+    }
+    //执行curl请求
+    $result = curl_exec($ch);
+    //关闭curl请求
+    curl_close($ch);
+    return $result;
+
+
+}

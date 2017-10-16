@@ -162,6 +162,13 @@ class Category extends Controller
             $this->result($_SERVER['HTTP_REFERER'],1,'success');
 
         }
-
     }
+
+    public function test()
+    {
+        $res = \Map::staticImage('沈阳市于洪区怒江北街红田翠园');
+        return $res;
+    }
+
+
 }

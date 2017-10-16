@@ -17,6 +17,8 @@ class Index extends Controller
     }
     public function welcome()
     {
+        $res = \Map::getLnglat('沈阳市于洪区怒江北街红田翠园');
+        print_r($res);
         return '欢迎';
     }
 }

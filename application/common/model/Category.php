@@ -28,13 +28,13 @@ class Category extends Model
         ];
         return $this->where($data)->order($order)->paginate();
     }
-    //不带分页的获取一级分类的方法
-    public function getAllFirstNormalCategoried()
+    //不带分页的获取一级二级分类的方法
+    public function getAllFirstNormalCategoried($parent_id = 0)
     {
         //条件
         $data = [
             'status' => ['neq', -1],
-            'parent_id' => 0,
+            'parent_id' => $parent_id,
         ];
         //排序属性
         $order = [
