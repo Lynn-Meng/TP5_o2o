@@ -25,4 +25,11 @@ class BisAccount extends Model
         ];
         return $this->where($data)->find();
     }
+    public function getAccountById($id)
+    {
+        $data = [
+            'bis_id' => $id
+        ];
+        return $this->where($data)->find();
+    }
 }

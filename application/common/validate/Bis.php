@@ -39,7 +39,7 @@ class Bis extends Validate
         'faren.require' => '法人不能为空',
         'faren_tel.require' => '法人电话不能为空',
         'city_id.require' => '请选择省份',
-        'se_city_id' => '请选择城市'
+        'se_city_id.require' => '请选择城市'
     ];
     protected $scene = [
 

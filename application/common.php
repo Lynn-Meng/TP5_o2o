@@ -74,6 +74,24 @@ function doCurl($url, $type = 0, $data=[])
     //关闭curl请求
     curl_close($ch);
     return $result;
-
-
+}
+function bisRegister($status)
+{
+    if ($status == 1)
+    {
+        $str = '审核通过';
+    }
+    else if($status == 0)
+    {
+        $str = '正在审核中,稍后平台方会向您发送邮件,请关注邮件';
+    }
+    else if($status == 2)
+    {
+        $str = '审核未通过,您提交的材料不符合要求,请重新提交';
+    }
+    else
+    {
+        $str = '该申请已经被删除';
+    }
+    return $str;
 }

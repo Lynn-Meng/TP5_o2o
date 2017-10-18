@@ -11,7 +11,7 @@ use think\Model;
 
 class City extends Model
 {
-    //获取一级分类的城市
+    //获取分类的城市
     public function getNormalCitiesByParentId($parent_id = 0)
     {
         $data = [
@@ -22,5 +22,16 @@ class City extends Model
             'id' => 'asc',
         ];
         return $this->where($data)->order($order)->select();
+    }
+    public function getOneCitiesByParentId($parent_id = 0)
+    {
+        $data = [
+            'status' => ['neq', -1],
+            'parent_id' => $parent_id
+        ];
+        $order = [
+            'id' => 'asc',
+        ];
+        return $this->where($data)->order($order)->find();
     }
 }

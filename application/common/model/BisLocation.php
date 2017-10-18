@@ -18,4 +18,11 @@ class BisLocation extends Model
         //获取添加后的主键id
         return $this->id;
     }
+    public function getMsgById($id)
+    {
+        $data = [
+            'bis_id' => $id
+        ];
+        return $this->where($data)->find();
+    }
 }

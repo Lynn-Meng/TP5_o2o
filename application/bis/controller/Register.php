@@ -121,14 +121,15 @@ class Register extends Controller
         $bisId = model('Bis')->add($bisData);
 
         //准备分类信息 提供给category_path字段使用
-        $array = $data['se_category_id'];
-        if ($array)
+        if (!empty($data['se_category_id']))
         {
+            $array = $data['se_category_id'];
             $se_categories_string = implode('|',$array);
         }
-
-
-
+        else
+        {
+            $se_categories_string = '';
+        }
         $locationData = [
             'name' => $data['name'],
             'logo' => $data['logo'],
@@ -172,11 +173,26 @@ class Register extends Controller
         }
         else
         {
-            $this->success('申请加入审核队列');
+            //发送邮件通知
+            $title = '商城入驻审核通知';
+            //从http到入口文件  domain后面拼模块
+            $url = request()->domain().url('bis/register/waiting',['id' => $bisId]);
+            $content = '您的店铺信息正在审核中,"<a href="'.$url.'" target="_blank">查看状态</a>"';
+            \phpmailer\Email::send($data['email'],$title,$content);
+
+            $this->success('申请成功',url('register/waiting',['id' => $bisId]));
         }
-
-
-
-
+    }
+    public function waiting($id)
+    {
+        if (!$id)
+        {
+            return '';
+        }
+        //根据id获取bis信息
+        $detail = model('Bis')->get($id);
+        return $this->fetch('',[
+            'detail' => $detail,
+        ]);
     }
 }
