@@ -12,7 +12,7 @@ use think\Validate;
 class Bis extends Validate
 {
     protected $rule = [
-        'name' => 'require|max:20',
+        'name' => 'require|max:100',
         'email' => 'require|email',
         'logo' => 'require',
         'licence_logo' => 'require',

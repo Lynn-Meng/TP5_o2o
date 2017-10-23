@@ -37,7 +37,7 @@ class Bis extends Controller
     }
     public function dellist()
     {
-        $res = $this->obj->getBisByStatus(2);
+        $res = $this->obj->getBisByStatus(-1);
         return $this->fetch('',[
             'bises' => $res
         ]);
@@ -57,8 +57,9 @@ class Bis extends Controller
             $userMes = $user;
         }
         //城市分类信息的获取
-        $idArray = explode(',',$res['city_path']);
         $citys = model('City')->getNormalCitiesByParentId();
+        //二级城市信息
+        $idArray = explode(',',$res['city_path']);
         $city = model('City')->getNormalCitiesByParentId($res['city_id']);
         return $this->fetch('',[
             //总的Bis信息
@@ -70,13 +71,27 @@ class Bis extends Controller
             //二级城市Id
             'seCityId' => $idArray[1],
             //用户信息
-            'userMes' => $userMes,
+            'userMes' => $user,
             //店铺位置信息
             'localMes' => $localMes,
             //所属分类
             'categories' => $categories
         ]);
     }
+    //根据city_path获取二级城市id
+//    public function getSeCityIdByCityPath($city_path)
+//    {
+//        if (empty($city_path))
+//        {
+//            return '';
+//        }
+//        //正则校验
+//        if (preg_match('/,/',$city_path))
+//        {
+//            $idArray = explode(',',$city_path);
+//            $se_city_id = $idArray[1];
+//        }
+//    }
     //动态获取二级城市
     public function secondCity()
     {
@@ -102,6 +117,25 @@ class Bis extends Controller
         else
         {
             return $this->result($res,1,'获取成功');
+        }
+    }
+    //修改状态的方法
+    public function status()
+    {
+        //获取id和status
+        $id = input('id',0,'intval');
+        $status = input('status',0,'intval');
+        //修改bis bisAccount bisLocation
+        $res_bis = $this->obj->save(['status' => $status],['id' => $id]);
+        $res_location = model('BisLocation')->save(['status' => $status],['bis_id' => $id,'is_main' => 1]);
+        $res_account = model('BisAccount')->save(['status' => $status],['bis_id' => $id,'is_main' => 1]);
+        if ($res_bis && $res_location && $res_account)
+        {
+            $this->success('状态更新成功');
+        }
+        else
+        {
+            $this->error('状态更新失败');
         }
     }
 }

@@ -510,7 +510,7 @@ class Template
      */
     private function parseExtend(&$content)
     {
-        $regex  = $this->getRegex('extra');
+        $regex  = $this->getRegex('extend');
         $array  = $blocks  = $baseBlocks  = [];
         $extend = '';
         $func   = function ($template) use (&$func, &$regex, &$array, &$extend, &$blocks, &$baseBlocks) {
@@ -1130,7 +1130,7 @@ class Template
                     $name = 'file';
                 case 'taglib':
                 case 'layout':
-                case 'extra':
+                case 'extend':
                     if (empty($name)) {
                         $name = 'name';
                     }

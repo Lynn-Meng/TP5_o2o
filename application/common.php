@@ -66,7 +66,7 @@ function doCurl($url, $type = 0, $data=[])
     if ($type == 1)
     {
         //post请求
-        curl_setopt($ch,CURLOPT_PORT,url);
+        curl_setopt($ch,CURLOPT_PORT,$url);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
     }
     //执行curl请求
@@ -94,4 +94,78 @@ function bisRegister($status)
         $str = '该申请已经被删除';
     }
     return $str;
+}
+
+//通过以及分类获取二级分类   并且以input的形式显示在页面上
+function getCategoryDetailByPath($category_path)
+{
+    if (empty($category_path))
+    {
+        return '';
+    }
+    if (preg_match('/,/',$category_path))
+    {
+        //先按照，号切开字符串
+        $tempArray = explode(',',$category_path);
+        $categoryId = $tempArray[0];
+        $tempSeString = $tempArray[1];
+        //按照|分割数组
+        $temp_se_arr = explode('|',$tempSeString);
+        $allCategories = model('Category')->getAllFirstNormalCategoried(intval($categoryId));
+        //循环组合形成input标签字符串
+        $htmlString = '';
+
+        for ($i = 0;$i < count($allCategories); $i++)
+        {
+            $current = $allCategories[$i];
+            //判断当前current的id是否存在temp_se_arr中
+            if (in_array($current['id'],$temp_se_arr))
+            {
+                $htmlString .= "<input type='checkbox' value='".$current['id']."' checked>";
+                $htmlString .= "<lable>".$current['name']."</lable>";
+            }
+            else
+            {
+                $htmlString .= "<input type='checkbox' value='".$current['id']."'>";
+                $htmlString .= "<lable>".$current['name']."</lable>";
+            }
+
+        }
+        return $htmlString;
+    }
+    else
+    {
+        $categoryId = intval($category_path);
+        return '';
+    }
+}
+function isMain($is_main)
+{
+    if ($is_main == 1)
+    {
+        return "<lable>是</lable>";
+    }
+    else
+    {
+        return "<lable>否</lable>";
+    }
+}
+
+function getCityNameByCityId($city_id)
+{
+    if (empty($city_id))
+    {
+        return '';
+    }
+    $city = model('City')->get($city_id);
+    return $city->name;
+}
+function getCategoryNameByCategoryId($category_id)
+{
+    if (empty($category_id))
+    {
+        return '';
+    }
+    $category = model('Category')->get($category_id);
+    return $category->name;
 }

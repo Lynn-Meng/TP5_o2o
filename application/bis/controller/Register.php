@@ -61,7 +61,7 @@ class Register extends Controller
     //申请按钮触发的方法
     public function regist()
     {
-        $data = input('post.');
+        $data = input('post.','','htmlentities');
 
         //校验商户数据
         $validateAccount = validate('BisAccount');

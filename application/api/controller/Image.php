@@ -14,7 +14,7 @@ class Image extends Controller
 {
     public function upload()
     {
-        //全局对象  实例化一个文件对象      instance实例化方法
+        //全局对象  实例化一个文件对象      instance 实例化方法
         //实例化一个文件操作对象，并调用file方法
         $file = Request::instance()->file('file');
         //将文件移动到某个文件目录下   会在static下创建一个upload文件夹

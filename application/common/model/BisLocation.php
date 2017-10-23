@@ -23,6 +23,14 @@ class BisLocation extends Model
         $data = [
             'bis_id' => $id
         ];
-        return $this->where($data)->find();
+        return $this->where($data)->select();
     }
+    public function getAllLocation()
+    {
+        $data = [
+
+        ];
+        return $this->where($data)->paginate(5);
+    }
+
 }
