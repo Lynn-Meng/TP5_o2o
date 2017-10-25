@@ -18,4 +18,9 @@ class User extends Model
         $res = $this->where($data)->find();
         return $res;
     }
+    public function add($data)
+    {
+        $this->save($data);
+        return $this->id;
+    }
 }

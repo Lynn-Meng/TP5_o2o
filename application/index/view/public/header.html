@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>首页</title>
+    <link rel="shortcut icon" href="">
+    <link rel="stylesheet" href="__STATIC__/index/css/base.css" />
+    <link rel="stylesheet" href="__STATIC__/index/css/common.css" />
+    <link rel="stylesheet" href="__STATIC__/index/css/index.css" />
+    <script type="text/javascript" src="__STATIC__/index/js/html5shiv.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/respond.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<div class="header-bar">
+    <div class="header-inner">
+        <ul class="father">
+            <li><a>北京</a></li>
+            <li>|</li>
+            <li class="city">
+                <a>切换城市<span class="arrow-down-logo"></span></a>
+                <div class="city-drop-down">
+                    <h3>热门城市</h3>
+                    <ul class="son">
+                        {volist name="cities" id="vo"}
+                        <li><a href="">{$vo.name}</a></li>
+                        {/volist}
+                    </ul>
+
+                </div>
+            </li>
+            <li><a href="{:url('register/index')}">注册</a></li>
+            <li>|</li>
+            {if $user}
+            <li><a href="{:url('login/index')}">{$user.username}&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{:url('login/logout')}">退出登录</a></a></li>
+            <li></li>
+            {else /}
+            <li><a href="{:url('login/index')}">登录</a></li>
+            {/if}
+        </ul>
+    </div>
+</div>

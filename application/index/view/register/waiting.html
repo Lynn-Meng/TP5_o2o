@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证结果</title>
+</head>
+<body>
+    <h2>验证成功，正在前往登录页面</h2>
+    <h1 id="info"></h1>
+    <script>
+        //倒计时前往登录页面
+        var time = 3;
+        var h1 = document.getElementById('info');
+        var timer = setInterval(function () {
+            if (time == 0)
+            {
+                window.location = 'http://o2o.local/index.php/index/login/index'
+            }
+            h1.innerHTML = time;
+            time -= 1
+        },1000);
+
+    </script>
+</body>
+</html>
