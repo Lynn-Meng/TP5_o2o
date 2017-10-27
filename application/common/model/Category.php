@@ -43,5 +43,37 @@ class Category extends Model
         ];
         return $this->where($data)->order($order)->select();
     }
+    public function getAllFirstNormalCategoriedLimit($parent_id = 0,$limit)
+    {
+        //条件
+        $data = [
+            'status' => ['neq', -1],
+            'parent_id' => $parent_id,
+        ];
+        //排序属性
+        $order = [
+            'listorder' => 'desc',
+            'id' => 'desc'
+        ];
+        $result =  $this->where($data)->order($order);
+        if ($limit)
+        {
+            $result->limit($limit);
+        }
+        return $result->select();
+    }
+    //根据parent_id数组获取所有二级分类
+    public function getSeCatsByParentIds($parent_ids = [])
+    {
+        $data = [
+            'status' => 1  ,
+            'parent_id' => ['in',implode(',',$parent_ids)]
+        ];
+        $order = [
+            'listorder' => 'desc',
+            'id' => 'desc'
+        ];
+        return $this->where($data)->order($order)->select();
+    }
 
 }

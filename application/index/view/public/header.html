@@ -9,15 +9,28 @@
     <link rel="stylesheet" href="__STATIC__/index/css/base.css" />
     <link rel="stylesheet" href="__STATIC__/index/css/common.css" />
     <link rel="stylesheet" href="__STATIC__/index/css/index.css" />
+    <link rel="stylesheet" href="__STATIC__/index/swiper/css/swiper.min.css" />
     <script type="text/javascript" src="__STATIC__/index/js/html5shiv.js"></script>
     <script type="text/javascript" src="__STATIC__/index/js/respond.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/swiper/js/swiper.min.js"></script>
     <script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js"></script>
+    <style>
+        .swiper-container
+        {
+            width:100%;
+            height: 100%;
+        }
+        .swiper-wrapper img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 <div class="header-bar">
     <div class="header-inner">
         <ul class="father">
-            <li><a>北京</a></li>
+            <li><a>{$city.name}</a></li>
             <li>|</li>
             <li class="city">
                 <a>切换城市<span class="arrow-down-logo"></span></a>
@@ -25,7 +38,7 @@
                     <h3>热门城市</h3>
                     <ul class="son">
                         {volist name="cities" id="vo"}
-                        <li><a href="">{$vo.name}</a></li>
+                        <li><a href="{:url('index/index',['city' => $vo.uname])}">{$vo.name}</a></li>
                         {/volist}
                     </ul>
 

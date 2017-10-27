@@ -973,13 +973,13 @@
     </column>
     <column id="198" parent="23" name="image">
       <Position>4</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>text|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
     </column>
     <column id="199" parent="23" name="url">
       <Position>5</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>text|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
     </column>

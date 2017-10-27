@@ -34,4 +34,18 @@ class Featured extends Model
         ];
         return $this->where($data)->order($order)->paginate(5);
     }
+    //获取所有正常状态的首页推荐位
+    public function getAllNormalFeatured($type = 0)
+    {
+
+        $data = [
+            'status' => 1,
+            'type' => $type
+        ];
+        $order = [
+            'listorder' => 'desc',
+            'id' => 'desc'
+        ];
+        return $this->where($data)->order($order)->select();
+    }
 }
