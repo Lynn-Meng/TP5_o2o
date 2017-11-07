@@ -11,20 +11,24 @@ use think\Controller;
 
 class Base extends Controller
 {
+    //存放当前城市信息
+    public  $city;
+    public $account;
     //初始化方法
     protected function _initialize()
     {
         //获取城市信息:
         $cities = model('City')->getAllNotProvinceCities();
         $user = session('o2o_user','','m');
-
+        $this->account = $user;
         //获取所有的分类信息
         $categories = $this->getrecommendCategory();
 //        $categories = $this->getCategories();
         $this->assign('categories',$categories);
         //获取head部分应该显示的当前城市
-        $city = $this->getCity($cities);
-        $this->assign('city',$city);
+        $currentCity = $this->getCity($cities);
+        $this->city = $currentCity;
+        $this->assign('city',$currentCity);
 
         if ($user)
         {
@@ -36,6 +40,10 @@ class Base extends Controller
         }
         //tp3
         $this->assign('cities',$cities);
+        //获取当前控制器名称字符串并返回到页面
+        $this->assign('controller',strtolower(request()->controller()));
+        //设置title
+        $this->assign('title','玖壹壹团购网');
     }
     //获取用户在首页点击的城市
     public function getCity($cities)
@@ -63,7 +71,7 @@ class Base extends Controller
         {
             $cityName = input('city',$defaultName,'trim');
             $current_city =  model('City')->get(['uname'=>$cityName]);
-            session('o2o',$current_city,'o2o');
+            session('o2o_city',$current_city,'o2o');
         }
 
         return $current_city;

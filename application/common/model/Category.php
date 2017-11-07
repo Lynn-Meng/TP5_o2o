@@ -75,5 +75,22 @@ class Category extends Model
         ];
         return $this->where($data)->order($order)->select();
     }
+    public function getSeCategoryByParentId($parent_id,$limit)
+    {
+        $data = [
+            'parent_id' => $parent_id  ,
+            'status' => 1,
+        ];
+        $order = [
+            'listorder' => 'desc',
+            'id' => 'desc'
+        ];
+        $result = $this->where($data)->order($order);
+        if ($limit > 0)
+        {
+            $result = $result->limit($limit);
+        }
+        return $result->select();
+    }
 
 }

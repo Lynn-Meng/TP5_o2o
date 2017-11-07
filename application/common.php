@@ -28,8 +28,6 @@ function status($status)
         return "<label class='label label-danger radius'>删除</label>";
     }
 }
-
-
 //设置分页样式的方法
 function pagination($pageObj)
 {
@@ -40,7 +38,6 @@ function pagination($pageObj)
     $result = "<div class='cl pd-5 bg-1 bk-gray mt-20 tp5-o2o'>".$pageObj->render()."</div>";
     return $result;
 }
-
 //网络请求的方法: cURL
 
 /**
@@ -192,3 +189,17 @@ function get_client_ip($type = 0) {
     $ip   = $long ? array($ip, $long) : array('0.0.0.0', 0);
     return $ip[$type];
 }
+
+function countLocation($location_ids)
+{
+    if (!$location_ids)
+    {
+        return 1;
+    }
+    else
+    {
+        $arr = explode(',',$location_ids);
+        return count($arr);
+    }
+}
+
