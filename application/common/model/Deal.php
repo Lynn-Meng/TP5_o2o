@@ -46,7 +46,6 @@ class Deal extends Model
             'status' => 1,
             'se_city_id' => $city_id,
 //            'start_time' => ['lt',time()],
-            'end_time' => ['gt',time()]
         ];
         $order = [
             'listorder' => 'desc',
